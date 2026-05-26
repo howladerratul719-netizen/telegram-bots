@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
@@ -23,7 +23,9 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Create cookies file
-      run: |     cat << 'COOKIESEOF' > cookies.txt     ${{ secrets.COOKIES }}     COOKIESEOF
+      env:
+        COOKIES: ${{ secrets.COOKIES }}
+      run: echo "$COOKIES" > cookies.txt
 
     - name: Run bot
       env:
