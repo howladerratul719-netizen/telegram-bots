@@ -24,7 +24,7 @@ os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 def download_video(url, output_path):
     ydl_opts = {
-        "format": "18/best",
+        "format": "bestvideo[height<=480]+bestaudio/best",
         "outtmpl": output_path,
         "merge_output_format": "mp4",
         "quiet": True,
