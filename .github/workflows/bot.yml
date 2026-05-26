@@ -2,8 +2,6 @@ name: Run Telegram Bot
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 6 * * *'
 
 jobs:
   run-bot:
@@ -11,23 +9,18 @@ jobs:
     timeout-minutes: 360
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
+    - uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+    - run: pip install -r requirements.txt
 
-    - name: Create cookies file
+    - run: printf '%s' "$COOKIES" > cookies.txt
       env:
         COOKIES: ${{ secrets.COOKIES }}
-      run: echo "$COOKIES" > cookies.txt
 
-    - name: Run bot
+    - run: python bot.py
       env:
         TOKEN: ${{ secrets.TOKEN }}
-      run: python bot.py
