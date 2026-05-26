@@ -23,7 +23,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Create cookies file
-      run: echo "${{ secrets.COOKIES }}" > cookies.txt
+      run: |     cat << 'COOKIESEOF' > cookies.txt     ${{ secrets.COOKIES }}     COOKIESEOF
 
     - name: Run bot
       env:
